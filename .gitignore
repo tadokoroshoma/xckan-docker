@@ -1,0 +1,6 @@
+.nuxt
+
+/volumes/backend_cache/*
+/volumes/solr/*
+
+!.gitkeep

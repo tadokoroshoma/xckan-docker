@@ -1,0 +1,30 @@
+version: '3.4'
+services:
+  solr:
+    image: solr:latest
+    environment:
+      VERBOSE: "no"
+    ports:
+      - "28983:8983"
+    volumes:
+      - ./volumes/solr:/var/solr
+    command:
+      - solr-precreate
+      - ckan-xsearch
+  backend:
+    build: ./backend
+    ports:
+      - "25000:5000"
+    depends_on:
+      - "solr"
+    volumes:
+      - ./volumes/backend_conf:/conf
+      - ./volumes/backend_cache:/cache
+  frontend:
+    build: ./frontend
+    ports:
+      - "23000:3000"
+    volumes:
+      - frontend_volume:/home/node/app/sip2-ckan/node_modules
+volumes:
+  frontend_volume:
