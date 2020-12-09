@@ -37,12 +37,12 @@
 
 - Run the harvester to update metadata (Anytime you want)
 
-		sudo docker container exec -it xckandocker_backend_1 python /app/harvester/update.py
+		sudo docker container exec -it xckan-backend python /app/harvester/update.py
 
 	If something goes wrong, execute the `update.py` script with `--debug` and
 	`--log` options.
 
-		sudo docker container exec -it xckandocker_backend_1 python /app/harvester/update.py --debug --log=/cache/update.log
+		sudo docker container exec -it xckan-backend python /app/harvester/update.py --debug --log=/cache/update.log
 
 	Running the above command will output the debug logs in `volumes/backend_cache/update.log`.
 

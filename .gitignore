@@ -1,5 +1,8 @@
 .nuxt
 
+*.zip
+*.tgz
+
 /volumes/backend_cache/*
 /volumes/solr/*
 
