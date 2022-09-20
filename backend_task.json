@@ -87,7 +87,7 @@
     "cpu": "$CPU",
     "volumes": [
         {
-            "name": "$VOLUME_NAME"
+            "name": "django_volume"
         }
     ],
     "tags": [
