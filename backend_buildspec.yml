@@ -16,7 +16,7 @@ phases:
       --build-arg DJANGO_SUPERUSER_EMAIL=$DJANGO_SUPERUSER_EMAIL
   post_build:
     commands:
-      - docker push ${ECR_URL}:${IMAGE_TAG}
+      - docker push ${ECR_URL}:${TASK_NAME}-django-${IMAGE_TAG}
       - printf '{"ImageURI":"%s"}' ${ECR_URL}:${TASK_NAME}-django-${IMAGE_TAG} > imageDetail.json
       - envsubst < backend_task.json > taskdef.json
 
