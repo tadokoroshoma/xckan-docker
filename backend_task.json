@@ -1,0 +1,77 @@
+[
+    {
+        "logConfiguration": {
+            "logDriver": "awslogs",
+            "options": {
+                "awslogs-region": "${REGION}",
+                "awslogs-group": "/ecs/${PRODUCT_NAME}",
+                "awslogs-stream-prefix": "ecs"
+            }
+        },
+        "portMappings": [
+            {
+                "hostPort": 5000,
+                "protocol": "tcp",
+                "containerPort": 5000
+            }
+        ],
+        "environment": [
+            {
+                "name": "XCKAN_ALLOWED_HOSTS",
+                "value": "*"
+            },
+            {
+                "name": "XCKAN_SOLR",
+                "value": "http://localhost:8983/solr/ckan-xsearch"
+            }
+        ],
+        "image": "<IMAGE1_NAME>",
+        "dependsOn": [
+            {
+                "containerName": "solr",
+                "condition": "START"
+            }
+        ],
+        "readonlyRootFilesystem": false,
+        "mountPoints": [
+            {
+                "readOnly": null,
+                "containerPath": "/ext",
+                "sourceVolume": "${BACKEND_DJANGO_CONTAINER_NAME}_volume"
+            }
+        ],
+        "name": "${BACKEND_DJANGO_CONTAINER_NAME}"
+    },
+    {
+        "logConfiguration": {
+            "logDriver": "awslogs",
+            "options": {
+                "awslogs-region": "${REGION}",
+                "awslogs-group": "/ecs/${PRODUCT_NAME}",
+                "awslogs-stream-prefix": "ecs"
+            }
+        },
+        "entryPoint": null,
+        "portMappings": [
+            {
+                "hostPort": 8983,
+                "protocol": "tcp",
+                "containerPort": 8983
+            }
+        ],
+        "command": [
+            "solr-precreate",
+            "ckan-xsearch"
+        ],
+        "environment": [
+            {
+                "name": "VERBOSE",
+                "value": "no"
+            }
+        ],
+        "image": "${ECR_URL}:${TASK_NAME}-solr-follower-1.0",
+        "essential": true,
+        "readonlyRootFilesystem": false,
+        "name": "${BACKEND_SOLR_CONTAINER_NAME}"
+    }
+]
