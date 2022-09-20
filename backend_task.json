@@ -39,10 +39,10 @@
                 {
                     "readOnly": null,
                     "containerPath": "/ext",
-                    "sourceVolume": "${BACKEND_DJANGO_CONTAINER_NAME}_volume"
+                    "sourceVolume": "django_volume"
                 }
             ],
-            "name": "${BACKEND_DJANGO_CONTAINER_NAME}"
+            "name": "django"
         },
         {
             "logConfiguration": {
@@ -74,7 +74,7 @@
             "image": "${ECR_URL}:${TASK_NAME}-solr-follower-1.0",
             "essential": true,
             "readonlyRootFilesystem": false,
-            "name": "${BACKEND_SOLR_CONTAINER_NAME}"
+            "name": "solr"
         }
     ],
     "taskRoleArn": "$TASK_ROLE_ARN",
