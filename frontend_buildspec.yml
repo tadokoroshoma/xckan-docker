@@ -6,10 +6,9 @@ phases:
       nodejs: 16
   pre_build:
     commands:
+      - S3_BUCKET_NAME=$(echo $S3_BUCKET_DOMAIN_NAME | cut -f 1 -d. )
       - mkdir -p node
-      - >-
-        curl -sL -C node $XCKAN_FRONTEND_SRC
-        | tar zx --strip-components 1
+      - curl -sL $XCKAN_FRONTEND_SRC | tar zx --strip-components 1 -C node
       - cd node/app/sip2-ckan
       - npm install
 
