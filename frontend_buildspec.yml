@@ -1,0 +1,21 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 16
+  pre_build:
+    commands:
+      - mkdir -p node
+      - >-
+        curl -sL -C node $XCKAN_FRONTEND_SRC
+        | tar zx --strip-components 1
+      - cd node/app/sip2-ckan
+      - npm install
+
+  build:
+    commands:
+      - npx nuxt-ts generate --spa
+  post_build:
+    commands:
+      - aws s3 sync --exact-timestamps dist/ s3://${S3_BUCKET_NAME}

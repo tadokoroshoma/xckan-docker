@@ -10,7 +10,7 @@ phases:
     commands: >-
       docker build ./backend
       -t ${ECR_URL}:${TASK_NAME}-django-${IMAGE_TAG}
-      --build-arg XCKAN_BACKEND_SRC=https://www2.info-proto.com/xckan/ckan-xsearch-0.9.20220328.tar.gz
+      --build-arg XCKAN_BACKEND_SRC=$XCKAN_BACKEND_SRC
       --build-arg DJANGO_SUPERUSER_USERNAME=$DJANGO_SUPERUSER_USERNAME
       --build-arg DJANGO_SUPERUSER_PASSWORD=$DJANGO_SUPERUSER_PASSWORD
       --build-arg DJANGO_SUPERUSER_EMAIL=$DJANGO_SUPERUSER_EMAIL
