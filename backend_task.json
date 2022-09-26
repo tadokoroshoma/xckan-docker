@@ -71,7 +71,7 @@
                     "value": "no"
                 }
             ],
-            "image": "${ECR_URL}:${TASK_NAME}-solr-follower-1.0",
+            "image": "${INIT_ECR_URL}:${TASK_NAME}-solr-follower-1.0",
             "essential": true,
             "readonlyRootFilesystem": false,
             "name": "solr"
