@@ -6,7 +6,7 @@
                 "logDriver": "awslogs",
                 "options": {
                     "awslogs-region": "${REGION}",
-                    "awslogs-group": "/ecs/${PRODUCT_NAME}",
+                    "awslogs-group": "/ecs/${PRODUCT_NAME}/backend-task",
                     "awslogs-stream-prefix": "ecs"
                 }
             },
@@ -49,7 +49,7 @@
                 "logDriver": "awslogs",
                 "options": {
                     "awslogs-region": "${REGION}",
-                    "awslogs-group": "/ecs/${PRODUCT_NAME}",
+                    "awslogs-group": "/ecs/${PRODUCT_NAME}/backend-task",
                     "awslogs-stream-prefix": "ecs"
                 }
             },
