@@ -19,8 +19,7 @@ phases:
   post_build:
     commands:
       - docker push ${ECR_URL}:leader-${IMAGE_TAG}
-      - printf '{"ImageURI":"%s"}' ${ECR_URL}:leader-${IMAGE_TAG} > imageDetail.json
-
+      - printf '[{"name":"django","imageUri":"image_URI"}]' ${ECR_URL}:leader-${IMAGE_TAG} > imagedefinitions.json
 artifacts:
   files:
-    - imageDetail.json
+    - imagedefinitions.json
