@@ -18,8 +18,8 @@ phases:
       --build-arg XCKAN_SITEMAP_DIR=$XCKAN_SITEMAP_DIR
   post_build:
     commands:
-      - docker push ${ECR_URL}:${IMAGE_TAG}
-      - printf '{"ImageURI":"%s"}' ${ECR_URL}:${IMAGE_TAG} > imageDetail.json
+      - docker push ${ECR_URL}:leader-${IMAGE_TAG}
+      - printf '{"ImageURI":"%s"}' ${ECR_URL}:leader-${IMAGE_TAG} > imageDetail.json
 
 artifacts:
   files:
