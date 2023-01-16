@@ -9,7 +9,7 @@ phases:
   build:
     commands: >-
       docker build ./backend
-      -t ${ECR_URL}:${IMAGE_TAG}
+      -t ${ECR_URL}:leader-${IMAGE_TAG}
       --build-arg XCKAN_BACKEND_SRC=$XCKAN_BACKEND_SRC
       --build-arg DJANGO_SUPERUSER_USERNAME=$DJANGO_SUPERUSER_USERNAME
       --build-arg DJANGO_SUPERUSER_PASSWORD=$DJANGO_SUPERUSER_PASSWORD
