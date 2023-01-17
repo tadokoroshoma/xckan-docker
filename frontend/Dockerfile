@@ -1,18 +1,15 @@
+# syntax = docker/dockerfile:1.2
 FROM node:14-alpine
 EXPOSE 3000
 
 # Set up base platform
 RUN apk --no-cache add --update python3 make g++ curl
 
-# Place files
-ARG XCKAN_FRONTEND_SRC=https://github.com/NII-CPS-Center/sip2-ckan/archive/refs/tags/v0.9.20220328.tar.gz
-RUN mkdir -p /home/node \ 
-  && curl -sL ${XCKAN_FRONTEND_SRC} \
-  | tar zx -C /home/node --strip-components 1
-
 # Prepare node modules
+RUN mkdir -p /home/node
+COPY ./app /home/node/app
 WORKDIR /home/node/app/sip2-ckan/
-RUN npm install
+RUN --mount=type=cache,target=/root/.npm npm install
 
 # Server configuration on build
 ARG SERVER_HOST
