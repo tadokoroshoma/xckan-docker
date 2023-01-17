@@ -7,13 +7,11 @@ phases:
   pre_build:
     commands:
       - S3_BUCKET_NAME=$(echo $S3_BUCKET_DOMAIN_NAME | cut -f 1 -d. )
-      - mkdir -p app
-      - curl -sL $XCKAN_FRONTEND_SRC | tar zx --strip-components 1 -C app
-      - cd app/app/sip2-ckan
+      - cd frontend/app/sip2-ckan
       - npm install
   build:
     commands:
       - npx nuxt-ts generate --spa
   post_build:
     commands:
-      - aws s3 sync --exact-timestamps dist/ s3://${S3_BUCKET_NAME}
+      - aws s3 sync --delete --exact-timestamps dist/ s3://${S3_BUCKET_NAME}
