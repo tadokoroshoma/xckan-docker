@@ -12,7 +12,7 @@ phases:
       - IMAGE_TAG=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
   build:
     commands: >-
-      docker build ./aws
+      docker build -f aws/Dockerfile .
       -t ${ECR_URL}:leader-${IMAGE_TAG}
       --build-arg XCKAN_BACKEND_SRC=$XCKAN_BACKEND_SRC
       --build-arg DJANGO_SUPERUSER_USERNAME=$DJANGO_SUPERUSER_USERNAME
