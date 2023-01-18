@@ -43,5 +43,5 @@ ENV XCKAN_SITEMAP_DIR=${XCKAN_SITEMAP_DIR}
 
 # Run script
 WORKDIR /app/ckan-xsearch/django-backend
-COPY entrypoint.sh /tmp
+COPY ../backend/entrypoint.sh /tmp
 ENTRYPOINT ["/bin/sh", "/tmp/entrypoint.sh"]
