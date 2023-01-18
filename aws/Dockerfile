@@ -7,10 +7,12 @@ ENV LC_CTYPE=C.UTF-8
 RUN apk update && apk add curl
 
 # Install python environment
-RUN pip install --upgrade pip setuptools
+RUN --mount=type=cache,target=/root/.cache \
+  pip install --upgrade pip setuptools
 WORKDIR /app
-COPY ../backend/ckan-xsearch/requirements.txt /app/
-RUN pip install -r requirements.txt
+COPY ./ckan-xsearch/requirements.txt /app/
+RUN --mount=type=cache,target=/root/.cache \
+  pip install -r requirements.txt
 
 # Set up Django application
 ENV XCKAN_DB_ENGINE=django.db.backends.sqlite3 \
@@ -29,7 +31,7 @@ ENV DJANGO_SUPERUSER_USERNAME=${DJANGO_SUPERUSER_USERNAME} \
   DJANGO_SUPERUSER_EMAIL=${DJANGO_SUPERUSER_EMAIL}
 
 # Prepare source codes
-COPY ../backend /app/
+COPY . /app/
 
 # Setup AWS CLI
 COPY awscli_setup.sh /tmp
