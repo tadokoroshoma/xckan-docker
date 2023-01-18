@@ -10,7 +10,7 @@ RUN apk update && apk add curl
 RUN --mount=type=cache,target=/root/.cache \
   pip install --upgrade pip setuptools
 WORKDIR /app
-COPY ./ckan-xsearch/requirements.txt /app/
+COPY ../backend/ckan-xsearch/requirements.txt /app/
 RUN --mount=type=cache,target=/root/.cache \
   pip install -r requirements.txt
 
@@ -31,7 +31,7 @@ ENV DJANGO_SUPERUSER_USERNAME=${DJANGO_SUPERUSER_USERNAME} \
   DJANGO_SUPERUSER_EMAIL=${DJANGO_SUPERUSER_EMAIL}
 
 # Prepare source codes
-COPY . /app/
+COPY ../backend /app/
 
 # Setup AWS CLI
 COPY awscli_setup.sh /tmp
