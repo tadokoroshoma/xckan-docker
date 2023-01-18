@@ -7,13 +7,13 @@ env:
 phases:
   pre_build:
     commands:
-      - aws/create_dockerfile.sh
+      - chmod +x aws/create_dockerfile.sh && aws/create_dockerfile.sh
       - $(aws ecr get-login --region $REGION --no-include-email)
       - AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query 'Account' --output text)
       - IMAGE_TAG=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
   build:
     commands: >-
-      docker build -f aws/Dockerfile .
+      docker build ./backend
       -t ${ECR_URL}:leader-${IMAGE_TAG}
       --build-arg XCKAN_BACKEND_SRC=$XCKAN_BACKEND_SRC
       --build-arg DJANGO_SUPERUSER_USERNAME=$DJANGO_SUPERUSER_USERNAME

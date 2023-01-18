@@ -1,7 +1,7 @@
 #/bin/sh
 
-cp backend/Dockerfile aws/Dockerfile
-cat << 'EOF' >> aws/Dockerfile
+cp -p aws/awscli_setup.sh backend/awscli_setup.sh
+cat << 'EOF' >> backend/Dockerfile
 
 
 # Setup AWS CLI
