@@ -1,11 +1,11 @@
 #/bin/sh
 
-cp backend/Dockerfile aws/Dockerfile
-cat << 'EOF' >> aws/Dockerfile
+cp -p aws/awscli_setup.sh backend/awscli_setup.sh
+cat << 'EOF' >> backend/Dockerfile
 
 
 # Setup AWS CLI
-COPY aws/awscli_setup.sh /tmp
+COPY awscli_setup.sh /tmp
 RUN chmod +x /tmp/awscli_setup.sh && /tmp/awscli_setup.sh
 ARG XCKAN_SITEMAP_URL
 ARG XCKAN_SITEMAP_DIR
