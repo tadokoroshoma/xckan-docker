@@ -1,5 +1,9 @@
 version: 0.2
 
+env:
+  variables:
+    DOCKER_BUILDKIT: "1"
+    
 phases:
   pre_build:
     commands:
@@ -18,7 +22,7 @@ phases:
     commands:
       - docker push ${ECR_URL}:${IMAGE_TAG}
       - printf '{"ImageURI":"%s"}' ${ECR_URL}:${IMAGE_TAG} > imageDetail.json
-      - envsubst < backend_task.json > taskdef.json
+      - envsubst < aws/backend_task.json > taskdef.json
 
 artifacts:
   files:

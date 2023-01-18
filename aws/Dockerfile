@@ -10,7 +10,7 @@ RUN apk update && apk add curl
 RUN --mount=type=cache,target=/root/.cache \
   pip install --upgrade pip setuptools
 WORKDIR /app
-COPY ./ckan-xsearch/requirements.txt /app/
+COPY backend/ckan-xsearch/requirements.txt /app/
 RUN --mount=type=cache,target=/root/.cache \
   pip install -r requirements.txt
 
@@ -31,9 +31,17 @@ ENV DJANGO_SUPERUSER_USERNAME=${DJANGO_SUPERUSER_USERNAME} \
   DJANGO_SUPERUSER_EMAIL=${DJANGO_SUPERUSER_EMAIL}
 
 # Prepare source codes
-COPY . /app/
+COPY backend /app/
+
+# Setup AWS CLI
+COPY aws/awscli_setup.sh /tmp
+RUN chmod +x /tmp/awscli_setup.sh && /tmp/awscli_setup.sh
+ARG XCKAN_SITEMAP_URL
+ARG XCKAN_SITEMAP_DIR
+ENV XCKAN_SITEMAP_URL=${XCKAN_SITEMAP_URL}
+ENV XCKAN_SITEMAP_DIR=${XCKAN_SITEMAP_DIR}
 
 # Run script
 WORKDIR /app/ckan-xsearch/django-backend
-COPY entrypoint.sh /tmp
+COPY backend/entrypoint.sh /tmp
 ENTRYPOINT ["/bin/sh", "/tmp/entrypoint.sh"]
